@@ -4,7 +4,7 @@ Actividades del Seminario de Servicios y Aplicaciones Distribuidas (SAD)
 * Eduardo de la Paz Gonzalez
 * Sergio García de la Iglesia
 ## Seminario 4
-* Actividad 1
+* [Actividad 1](http://github.com/JoxuMac/ActividadesSEM-SAD/tree/master/Seminario%204/Actividad%201)
 
 * Actividad 2
 
