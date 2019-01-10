@@ -16,7 +16,7 @@ Actividades del Seminario de Servicios y Aplicaciones Distribuidas (SAD)
 * Actividad 2
 
 ## Seminario 6 - 7
-* Actividad 1
+* [Actividad 1](http://github.com/JoxuMac/ActividadesSEM-SAD/tree/master/Seminario%206-7/Actividad%201)
 
 * Actividad 2
 
