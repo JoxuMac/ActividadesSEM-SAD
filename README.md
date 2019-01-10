@@ -1,7 +1,26 @@
 # ActividadesSEM-SAD
 Actividades del Seminario de Servicios y Aplicaciones Distribuidas (SAD)
+* Josué Gutiérrez Durán
+* Eduardo de la Paz Gonzalez
+* Sergio García de la Iglesia
+## Seminario 4
+* Actividad 1
 
-## Seminario 3
+* Actividad 2
+
+* Actividad 3
+
+## Seminario 5
+* Actividad 1
+
+* Actividad 2
+
+## Seminario 6 - 7
+* Actividad 1
+
+* Actividad 2
+
+## Seminario 8
 * Actividad 1
 
 * Actividad 2
@@ -12,4 +31,18 @@ Actividades del Seminario de Servicios y Aplicaciones Distribuidas (SAD)
 
 * Actividad 5
 
+* Actividad 6
 
+* Actividad 7
+
+## Seminario 9
+* Actividad 1
+
+* Actividad 2
+
+* Actividad 3
+
+* Actividad 4
+
+## Seminario 10
+* Actividad 1
