@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito</title>
+</head>
+<body>
+  <h1>Almacen</h1>
+  <table>
+  <tr>
+    <th>Producto</th>
+    <th>Agregar al Carrito</th>
+  </tr>
+  
+  <% for(let i = 0; i < almacen.length; i++) { %>
+	<p>
+	<tr>
+    <td><%= almacen[i].desc %></td>
+    <td><button class="" onclick="javascript:location.href='./addToCart?id=<%= almacen[i]._id %>'" >agregar al carrito</button></td>
+  </tr>
+<% } %>
+  
+  
+</table>
+
+  <h1>Carrito</h1>
+  <table>
+  <tr>
+    <th>Producto</th>
+    <th>Eliminar del Carrito</th>
+  </tr>
+  
+  <% for(let i = 0; i < carrito.length; i++) { %>
+	<p>
+	<tr>
+    <td><%= carrito[i].desc %></td>
+    <td><button class="" onclick="javascript:location.href='./removeFromCart?id=<%= carrito[i]._id %>'" >eliminar del carrito</button></td>
+  </tr>
+<% } %>
+  
+  
+</table>
+</body>
+</html>
