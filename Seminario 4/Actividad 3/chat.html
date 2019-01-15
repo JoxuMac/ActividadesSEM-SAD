@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: rgb(180, 180, 180); padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #m { width: 90%; }
+      #nick { width: 30% }
+      #private { color: white; }
+      #statusContainer { padding: 10px 10px; margin-left: auto; margin-right: auto; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p id='onLine'><i text-align: center; id='online'></i></p>
+    </div>
+    <div>
+      <p id='statusContainer'><i text-align: center; id='status'></i></p>
+    </div>
+    <ul id="messages"></ul>
+    
+    <form action="">
+      <input type="text" id="nick" placeholder="Nickname" disabled>
+      <input type="checkbox" id="private"> Privado
+      <input type="text" id="m" placeholder="Message">
+      <button>Send</button>
+    </form>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+
+      var socket = io();
+      var nickName = "";
+      var privado = false;
+
+      obtenerNick();
+      /**
+       * Funciones para ejecutar cuando se detecten los diferentes eventos
+       **/
+
+      var form = function() {
+        // Lo copiamos directamente para él
+
+        if (privado){
+          var line = $('<strong></strong>').text(nickName + ' (privado a ' + $('#nick').val() + '): ');
+        } else {
+          var line = $('<strong></strong>').text(nickName + ': ');
+        }
+        
+        var li = $('<li></li>').append(line).append($('#m').val());
+        $('#messages').append(li);
+        
+        var message = {nick: nickName, privado: privado, to: $('#nick').val(), m: $('#m').val()}
+        
+        socket.emit('chat message', message);
+        $('#m').val('');
+
+        return false;
+      };
+
+      var keypressFunction = function () {
+        socket.emit('is typing', nickName);
+      }
+      
+      
+
+      /**
+       * Eventos
+       **/
+
+      $('form').on('submit', form);
+      $('#m').on('keypress', keypressFunction);
+      $('#private').change(() => {
+        if( $('#private').prop('checked') ) {
+          console.log('checked');
+          $('#nick').prop('disabled', false);
+          privado = true;
+        } else {
+          console.log('unchecked');
+          $('#nick').prop('disabled', true);
+          privado = false;
+        }
+      });
+
+      /**
+       * Sockets
+       **/
+
+      socket.on('chat message', (msg) => {
+        $('#status').text('');
+
+        if (msg.privado == true && msg.to == nickName) {
+          var line = $('<strong></strong>').text(msg.nick + ' (privado): ');
+          var li = $('<li></li>').append(line).append(msg.m);
+          $('#messages').append(li);
+        }
+
+        if (msg.privado == false) {
+          var line = $('<strong></strong>').text(msg.nick + ': ');
+          var li = $('<li></li>').append(line).append(msg.m);
+          $('#messages').append(li);
+        }
+      });
+
+      socket.on('user connection', (info) => {
+        var line = $('<strong></strong>').text(info);
+        var li = $('<li></li>').append(line);
+        
+        $('#messages').append(li);
+      });
+
+      socket.on('is typing', (info) => {
+        $('#status').text(info);
+      });
+
+      socket.on('actualizar lista', (array) => {
+        $('#online').text('Están conectados: ' + array);
+      });
+
+    
+      function obtenerNick() {
+        nick = "";
+        alert("Debe elegir un nick para poder participar en el foro");
+        while (nick == null || nick == "") {
+          nick = prompt("Elija su nick", "Nick");
+          if (nick == null || nick == "") {
+            alert("Debe elegir un nick para poder participar en el foro");
+          }
+        }
+        nickName = nick;
+        socket.emit("User connected", nick);
+      }
+
+    </script>
+  </body>
+</html>
